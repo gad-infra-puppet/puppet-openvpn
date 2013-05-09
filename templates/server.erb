@@ -4,6 +4,12 @@ ca /etc/openvpn/<%= scope.lookupvar('name') %>/keys/ca.crt
 cert /etc/openvpn/<%= scope.lookupvar('name') %>/keys/server.crt
 key /etc/openvpn/<%= scope.lookupvar('name') %>/keys/server.key
 dh /etc/openvpn/<%= scope.lookupvar('name') %>/keys/dh1024.pem
+
+daemon
+persist-key
+persist-tun
+keepalive 10 60
+
 proto <%= scope.lookupvar('proto') %>-server
 port <%= scope.lookupvar('port') %>
 <% if scope.lookupvar('tls_server') -%>
@@ -31,3 +37,4 @@ server <%= scope.lookupvar('server') %>
 <% scope.lookupvar('push').each do |item| -%>
 push <%= item %>
 <% end -%>
+topology subnet
